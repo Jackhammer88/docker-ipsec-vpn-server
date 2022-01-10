@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: IKEv2VPN
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: IKEv2VPN
+  template:
+    metadata:
+      name: IKEv2VPN
+      labels:
+        k8s-app: IKEv2VPN
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: IKEv2VPN
+          image: hwdsl2/ipsec-vpn-server
+          volumeMounts:
+            - name: ikev2-vpn-data
+              mountPath: /etc/ipsec.d
+      volumes:
+        - name: ikev2-vpn-data
+          secret:
+            secretName: ikev2-vpn-data
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: IKEv2VPN
+spec:
+  type: LoadBalancer
+  selector:
+    k8s-app: IKEv2VPN
+  ports:
+    - name: udp-500
+      protocol: UDP
+      port: 500
+      targetPort: 500
+    - name: udp-4500
+      protocol: UDP
+      port: 4500
+      targetPort: 4500
+
