@@ -3,7 +3,6 @@ kind: Deployment
 metadata:
   name: ikev2-vpn
 spec:
-  replicas: 1
   selector:
     matchLabels:
       k8s-app: ikev2-vpn
@@ -22,6 +21,7 @@ spec:
           volumeMounts:
             - name: vpn-data
               mountPath: /etc/ipsec.d
+              readOnly: false
       volumes:
         - name: vpn-data
           ikev2-vpn-data:
