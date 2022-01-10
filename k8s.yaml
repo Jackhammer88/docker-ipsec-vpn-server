@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: IKEv2VPN
+  name: ikev2-vpn
 spec:
   replicas: 1
   selector:
     matchLabels:
-      k8s-app: IKEv2VPN
+      k8s-app: ikev2-vpn
   template:
     metadata:
-      name: IKEv2VPN
+      name: ikev2-vpn
       labels:
-        k8s-app: IKEv2VPN
+        k8s-app: ikev2-vpn
     spec:
       restartPolicy: Always
       containers:
-        - name: IKEv2VPN
+        - name: ikev2-vpn
           image: hwdsl2/ipsec-vpn-server
           volumeMounts:
             - name: ikev2-vpn-data
