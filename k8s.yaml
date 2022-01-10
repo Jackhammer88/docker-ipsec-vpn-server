@@ -30,11 +30,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: IKEv2VPN
+  name: ikev2-vpn
 spec:
   type: LoadBalancer
   selector:
-    k8s-app: IKEv2VPN
+    k8s-app: ikev2-vpn
   ports:
     - name: udp-500
       protocol: UDP
