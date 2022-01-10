@@ -17,6 +17,8 @@ spec:
       containers:
         - name: ikev2-vpn
           image: hwdsl2/ipsec-vpn-server
+          securityContext:
+              privileged: true
           volumeMounts:
             - name: ikev2-vpn-data
               mountPath: /etc/ipsec.d
